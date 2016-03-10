@@ -22,7 +22,7 @@ Vagrant.configure(2) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -45,13 +45,13 @@ Vagrant.configure(2) do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  # config.vm.provider "virtualbox" do |vb|
+  config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
   #
-  #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
+    # Customize the amount of memory on the VM:
+    vb.memory = "4096"
+  end
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -71,7 +71,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     export DEBIAN_FRONTEND=noninteractive
-    sudo apt-get update
+    apt-get update
     debconf-set-selections <<< "postfix postfix/mailname string ords.local"
     debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
     sudo apt-get install -y openjdk-7-jdk maven tomcat7 postgresql postfix
@@ -79,6 +79,15 @@ Vagrant.configure(2) do |config|
     sudo -u postgres psql -c "create database ordstest with owner ords"
     export ORDS_CONF_DIR=/ords/test-config
     cd /ords/ords-test
-    mvn install
+
+    echo Maven build time...
+
+    mvn -l /var/log/maven.log install
+
+    echo -n \n\nexport ORDS_CONF_DIR=/ords/test-config\n>> /etc/default/tomcat7
+
+    /etc/init.d/tomcat7 restart
+
+
   SHELL
 end
