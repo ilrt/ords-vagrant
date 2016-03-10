@@ -5,7 +5,7 @@ This will build and start ORDS using vagrant, for testing purposes.
 ## Prerequisites ##
 
 1. git
-2. Vagrant [https://www.vagrantup.com]
+2. Vagrant https://www.vagrantup.com
 
 ## Starting ##
 
