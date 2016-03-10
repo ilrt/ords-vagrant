@@ -71,7 +71,8 @@ Vagrant.configure(2) do |config|
     sudo apt-get install -y openjdk-7-jdk maven tomcat7 postgresql
     sudo -u postgres psql -c "create user ords with password 'ords'"
     sudo -u postgres psql -c "create database ordstest with owner ords"
-    export ORDS_CONF_DIR=/ords/ords-test/config-examples
+    cp -r /ords/ords-test/config-examples /etc/ords
+    export ORDS_CONF_DIR=/etc/ords
     cd /ords/ords-test
     mvn install
   SHELL
