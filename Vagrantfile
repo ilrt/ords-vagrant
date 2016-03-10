@@ -66,13 +66,18 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
+
+  # ORDS user seems to need to be a superuser? role and db aren't enough 
+
   config.vm.provision "shell", inline: <<-SHELL
+    export DEBIAN_FRONTEND=noninteractive
     sudo apt-get update
-    sudo apt-get install -y openjdk-7-jdk maven tomcat7 postgresql
-    sudo -u postgres psql -c "create user ords with password 'ords'"
+    debconf-set-selections <<< "postfix postfix/mailname string ords.local"
+    debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
+    sudo apt-get install -y openjdk-7-jdk maven tomcat7 postgresql postfix
+    sudo -u postgres psql -c "create user ords createrole createdb superuser password 'ords'"
     sudo -u postgres psql -c "create database ordstest with owner ords"
-    cp -r /ords/ords-test/config-examples /etc/ords
-    export ORDS_CONF_DIR=/etc/ords
+    export ORDS_CONF_DIR=/ords/test-config
     cd /ords/ords-test
     mvn install
   SHELL
