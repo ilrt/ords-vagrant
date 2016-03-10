@@ -1,4 +1,4 @@
-# A qattempt to get ORDS working quickly #
+# An attempt to get ORDS working quickly #
 
 This will build and start ORDS using vagrant, for testing purposes.
 
