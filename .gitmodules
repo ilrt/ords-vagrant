@@ -1,27 +1,36 @@
 [submodule "ords/ords-audit-api"]
 	path = ords/ords-audit-api
 	url = https://github.com/ox-it/ords-audit-api.git
+	ignore = dirty
 [submodule "ords/ords-database-api"]
 	path = ords/ords-database-api
 	url = https://github.com/ox-it/ords-database-api.git
+	ignore = dirty
 [submodule "ords/ords-database-structure-api"]
 	path = ords/ords-database-structure-api
 	url = https://github.com/ox-it/ords-database-structure-api.git
+	ignore = dirty
 [submodule "ords/ords-project-api"]
 	path = ords/ords-project-api
 	url = https://github.com/ox-it/ords-project-api.git
+	ignore = dirty
 [submodule "ords/ords-statistics-api"]
 	path = ords/ords-statistics-api
 	url = https://github.com/ox-it/ords-statistics-api.git
+	ignore = dirty
 [submodule "ords/ords-user-api"]
 	path = ords/ords-user-api
 	url = https://github.com/ox-it/ords-user-api.git
+	ignore = dirty
 [submodule "ords/ords-ui"]
 	path = ords/ords-ui
 	url = https://github.com/ox-it/ords-ui.git
+	ignore = dirty
 [submodule "ords/ords-security-common"]
 	path = ords/ords-security-common
 	url = https://github.com/ox-it/ords-security-common.git
+	ignore = dirty
 [submodule "ords/ords-test"]
 	path = ords/ords-test
 	url = https://github.com/ox-it/ords-test
+	ignore = dirty
