@@ -70,6 +70,8 @@ Vagrant.configure(2) do |config|
   # ORDS user seems to need to be a superuser? role and db aren't enough 
 
   config.vm.provision "shell", inline: <<-SHELL
+    set -e
+
     export DEBIAN_FRONTEND=noninteractive
     apt-get update
     debconf-set-selections <<< "postfix postfix/mailname string ords.local"
@@ -88,6 +90,6 @@ Vagrant.configure(2) do |config|
 
     /etc/init.d/tomcat7 restart
 
-
+    find . -name '*.war' -exec cp {} /var/lib/tomcat7/webapps \;
   SHELL
 end
