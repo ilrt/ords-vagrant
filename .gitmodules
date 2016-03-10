@@ -22,3 +22,6 @@
 [submodule "ords/ords-security-common"]
 	path = ords/ords-security-common
 	url = https://github.com/ox-it/ords-security-common.git
+[submodule "ords/ords-test"]
+	path = ords/ords-test
+	url = https://github.com/ox-it/ords-test
