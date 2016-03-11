@@ -76,20 +76,21 @@ Vagrant.configure(2) do |config|
     apt-get update
     debconf-set-selections <<< "postfix postfix/mailname string ords.local"
     debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
-    sudo apt-get install -y openjdk-7-jdk maven tomcat7 postgresql postfix
-    sudo -u postgres psql -c "create user ords createrole createdb superuser password 'ords'"
-    sudo -u postgres psql -c "create database ordstest with owner ords"
+    apt-get install -y openjdk-7-jdk maven tomcat7 postgresql postfix
+    sudo -u postgres psql -f /vagrant/init.sql
+    
     export ORDS_CONF_DIR=/ords/test-config
+    
     cd /ords/ords-test
 
     echo Maven build time...
 
-    mvn -l /var/log/maven.log install
+    mvn install
 
     echo -n \n\nexport ORDS_CONF_DIR=/ords/test-config\n>> /etc/default/tomcat7
 
     /etc/init.d/tomcat7 restart
 
-    find . -name '*.war' -exec cp {} /var/lib/tomcat7/webapps \;
+    find . -name '*.war' -exec cp {} /var/lib/tomcat7/webapps \\;
   SHELL
 end
