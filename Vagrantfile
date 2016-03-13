@@ -91,6 +91,6 @@ Vagrant.configure(2) do |config|
 
     /etc/init.d/tomcat7 restart
 
-    find . -name '*.war' -exec cp {} /var/lib/tomcat7/webapps \\;
+    find /ords -name '*.war' -exec cp {} /var/lib/tomcat7/webapps \\;
   SHELL
 end
